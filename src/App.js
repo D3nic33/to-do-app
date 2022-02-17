@@ -27,8 +27,8 @@ class HandleUserInput extends React.Component {
   }
 
   handleSubmit(event) {
+    this.setState({value: event.target.value});
     todo.push(this.state.value);
-    console.log(todo);
     event.preventDefault();
   }
 
@@ -38,7 +38,11 @@ class HandleUserInput extends React.Component {
         <form onSubmit={this.handleSubmit}>
           <label>
             Name:
-            <input type="text" value={this.state.value} onChange={this.handleChange} />
+            <input
+              type="text" 
+              value={this.state.value}
+              onChange={this.handleChange}
+            />
           </label>
           <input type="submit" value="Submit" />
         </form>
