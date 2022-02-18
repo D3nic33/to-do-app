@@ -29,6 +29,7 @@ class HandleUserInput extends React.Component {
   handleSubmit(event) {
     this.setState({value: event.target.value});
     todo.push(this.state.value);
+    this.setState({value: ''});
     event.preventDefault();
   }
 
