@@ -7,7 +7,7 @@ const logoSpecs = "100px";
 class Header extends React.Component {
     render(){
         return(
-            <div className='bg-blue-400 mb-16 px-2 py-2'>
+            <div className='bg-blue-400 mb-12 px-2 py-2'>
                 <div className='flex flex-row items-center'>
                     <Link to="/">
                         <img src={Logo} alt="Logo" height={logoSpecs} width={logoSpecs} />
