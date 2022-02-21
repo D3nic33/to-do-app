@@ -1,14 +1,27 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 
 const todo = [];
 
 function NumberList(props) {
+  const ls = JSON.parse(localStorage.getItem('Tasks'));
+  useEffect(() => {
+    if(ls != null){
+      tasksList.push(ls);
+    }
+  }, [todo]);
+
   const tasksList = props.tasksList;
   const listItems = tasksList.map((tasks) =>
-    <li>{tasks}</li>
+    <div className='py-2'>
+      <div key={tasks} className='border-gray-200 border-2 rounded-md shadow-sm py-2 px-2'>
+        {tasks}
+      </div>
+    </div>
   );
   return (
-    <ul>{listItems}</ul>
+    <div className='w-full py-2 px-2'>
+      {listItems}
+    </div>
   );
 }
 
@@ -29,14 +42,15 @@ class HandleUserInput extends React.Component {
     this.setState({value: event.target.value});
     todo.push(this.state.value);
     this.setState({value: ''});
+    localStorage.setItem('Tasks',JSON.stringify( todo ));
     event.preventDefault();
   }
 
   render() {
     return (
-      <div className='flex justify-center'>
+      <div className='flex justify-center w-full'>
         <div className='flex-col'>
-          <form onSubmit={this.handleSubmit}>
+          <form className='pb-4' onSubmit={this.handleSubmit}>
             <label tmlFor="taskinput" className="block text-xl font-medium text-gray-700">Taken</label>
               <div className="mt-1 flex items-center">
                 <div className="inline-block">
@@ -61,3 +75,9 @@ class HandleUserInput extends React.Component {
 }
 
 export default HandleUserInput;
+
+
+//const ls = JSON.parse(localStorage.getItem('Tasks'));
+//if(ls != null){
+//  tasksList.push(ls);
+//}
