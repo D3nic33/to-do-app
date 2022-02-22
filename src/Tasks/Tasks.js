@@ -1,37 +1,46 @@
-import React, {useEffect} from 'react';
+import React from 'react';
 
-const todo = [];
-
-function NumberList(props) {
-  const ls = JSON.parse(localStorage.getItem('Tasks'));
-  useEffect(() => {
-    if(ls != null){
-      tasksList.push(ls);
-    }
-  }, [todo]);
-
-  const tasksList = props.tasksList;
-  const listItems = tasksList.map((tasks) =>
-    <div className='py-2'>
-      <div key={tasks} className='border-gray-200 border-2 rounded-md shadow-sm py-2 px-2'>
-        {tasks}
+class NumberList extends React.Component {
+  render() {
+    const listItems = this.props.tasks.map((tasks) =>
+      <div className='py-2'>
+        <div key={tasks} className='border-gray-200 border-2 rounded-md shadow-sm py-2 px-2'>
+          {tasks}
+        </div>
       </div>
-    </div>
-  );
-  return (
-    <div className='w-full py-2 px-2'>
-      {listItems}
-    </div>
-  );
+    );
+
+    return (
+      <div className='w-full py-2 px-2'>
+        {listItems}
+      </div>
+    );
+  }
 }
 
 class HandleUserInput extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: ''};
+    this.state = {
+      value: '',
+      items: [],
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    if (!localStorage.getItem('Tasks')) {
+      return;
+    }
+    const items = JSON.parse(localStorage.getItem('Tasks'));
+    if (!items.length) {
+      return;
+    }
+    this.setState({
+      items: items
+    });
   }
 
   handleChange(event) {
@@ -39,10 +48,20 @@ class HandleUserInput extends React.Component {
   }
 
   handleSubmit(event) {
-    this.setState({value: event.target.value});
-    todo.push(this.state.value);
+    this.setState({
+      value: event.target.value
+    });
+
+    let items = this.state.items;
+    items.push(this.state.value);
+
+    this.setState({
+      items: items
+    });
+
     this.setState({value: ''});
-    localStorage.setItem('Tasks',JSON.stringify( todo ));
+    localStorage.setItem('Tasks', JSON.stringify(this.state.items));
+
     event.preventDefault();
   }
 
@@ -66,7 +85,7 @@ class HandleUserInput extends React.Component {
               </div>
           </form>
           <div>
-            <NumberList tasksList={todo}/>
+            <NumberList tasks={this.state.items}/>
           </div>
         </div>
       </div>
@@ -75,9 +94,3 @@ class HandleUserInput extends React.Component {
 }
 
 export default HandleUserInput;
-
-
-//const ls = JSON.parse(localStorage.getItem('Tasks'));
-//if(ls != null){
-//  tasksList.push(ls);
-//}
