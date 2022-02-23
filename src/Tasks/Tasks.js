@@ -1,24 +1,46 @@
 import React from 'react';
 
-const todo = [];
+class NumberList extends React.Component {
+  render() {
+    const listItems = this.props.tasks.map((tasks) =>
+      <div className='py-2'>
+        <div key={tasks} className='border-gray-200 border-2 rounded-md drop-shadow py-2 px-2'>
+          {tasks}
+        </div>
+      </div>
+    );
 
-function NumberList(props) {
-  const tasksList = props.tasksList;
-  const listItems = tasksList.map((tasks) =>
-    <li>{tasks}</li>
-  );
-  return (
-    <ul>{listItems}</ul>
-  );
+    return (
+      <div className='w-full py-2 px-2'>
+        {listItems}
+      </div>
+    );
+  }
 }
 
 class HandleUserInput extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {value: ''};
+    this.state = {
+      value: '',
+      items: [],
+    };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  componentDidMount() {
+    if (!localStorage.getItem('Tasks')) {
+      return;
+    }
+    const items = JSON.parse(localStorage.getItem('Tasks'));
+    if (!items.length) {
+      return;
+    }
+    this.setState({
+      items: items
+    });
   }
 
   handleChange(event) {
@@ -26,35 +48,45 @@ class HandleUserInput extends React.Component {
   }
 
   handleSubmit(event) {
-    this.setState({value: event.target.value});
-    todo.push(this.state.value);
+    this.setState({
+      value: event.target.value
+    });
+
+    let items = this.state.items;
+    items.push(this.state.value);
+
+    this.setState({
+      items: items
+    });
+
     this.setState({value: ''});
+    localStorage.setItem('Tasks', JSON.stringify(this.state.items));
+
     event.preventDefault();
   }
 
   render() {
     return (
-      <div className='flex justify-center'>
-        <div className='flex-col'>
-          <form onSubmit={this.handleSubmit}>
+      <div className='flex flex-col justify-center w-full'>
+          <form className='flex-col m-auto' onSubmit={this.handleSubmit}>
             <label tmlFor="taskinput" className="block text-xl font-medium text-gray-700">Taken</label>
               <div className="mt-1 flex items-center">
                 <div className="inline-block">
                   <input
-                      type="text" 
-                      name='taskinput'
-                      value={this.state.value}
-                      onChange={this.handleChange}
-                      className="border-gray-300 border-2 shadow-sm"
-                    />
+                    type="text" 
+                    name='taskinput'
+                    value={this.state.value}
+                    onChange={this.handleChange}
+                    className="border-gray-300 border-2 shadow-sm"
+                  />
                 </div>
                 <input type="submit" value="Toevoegen" className="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" />
               </div>
           </form>
-          <div>
-            <NumberList tasksList={todo}/>
+
+          <div className='m-auto w-9/12'>
+            <NumberList tasks={this.state.items}/>
           </div>
-        </div>
       </div>
     )
   }
