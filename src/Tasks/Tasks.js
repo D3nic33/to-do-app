@@ -4,7 +4,7 @@ class NumberList extends React.Component {
   render() {
     const listItems = this.props.tasks.map((tasks) =>
       <div className='py-2'>
-        <div key={tasks} className='border-gray-200 border-2 rounded-md shadow-sm py-2 px-2'>
+        <div key={tasks} className='border-gray-200 border-2 rounded-md drop-shadow py-2 px-2'>
           {tasks}
         </div>
       </div>
@@ -67,27 +67,26 @@ class HandleUserInput extends React.Component {
 
   render() {
     return (
-      <div className='flex justify-center w-full'>
-        <div className='flex-col'>
-          <form className='pb-4' onSubmit={this.handleSubmit}>
+      <div className='flex flex-col justify-center w-full'>
+          <form className='flex-col m-auto' onSubmit={this.handleSubmit}>
             <label tmlFor="taskinput" className="block text-xl font-medium text-gray-700">Taken</label>
               <div className="mt-1 flex items-center">
                 <div className="inline-block">
                   <input
-                      type="text" 
-                      name='taskinput'
-                      value={this.state.value}
-                      onChange={this.handleChange}
-                      className="border-gray-300 border-2 shadow-sm"
-                    />
+                    type="text" 
+                    name='taskinput'
+                    value={this.state.value}
+                    onChange={this.handleChange}
+                    className="border-gray-300 border-2 shadow-sm"
+                  />
                 </div>
                 <input type="submit" value="Toevoegen" className="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" />
               </div>
           </form>
-          <div>
+
+          <div className='m-auto w-9/12'>
             <NumberList tasks={this.state.items}/>
           </div>
-        </div>
       </div>
     )
   }
