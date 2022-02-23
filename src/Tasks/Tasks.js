@@ -1,11 +1,19 @@
 import React from 'react';
 
 class NumberList extends React.Component {
+
+  handleClick(){
+    alert();
+  }
+
   render() {
     const listItems = this.props.tasks.map((tasks) =>
       <div className='py-2'>
-        <div key={tasks} className='bg-white border border-gray-200 rounded-2xl drop-shadow-lg py-5 px-10'>
-          {tasks}
+        <div
+          key={tasks}
+          onClick={this.handleClick} 
+          className='bg-white border border-gray-200 rounded-2xl drop-shadow-lg py-5 px-10'>
+            {tasks}
         </div>
       </div>
     );
@@ -86,7 +94,7 @@ class HandleUserInput extends React.Component {
           <hr className='mt-12 w-1/6 m-auto border rounded-xl'/>
 
           <div className='pt-12 m-auto w-6/12'>
-            <NumberList tasks={this.state.items} />
+            <NumberList tasks={this.state.items}/>
           </div>
       </div>
     )
