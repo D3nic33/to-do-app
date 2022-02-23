@@ -4,14 +4,14 @@ class NumberList extends React.Component {
   render() {
     const listItems = this.props.tasks.map((tasks) =>
       <div className='py-2'>
-        <div key={tasks} className='border-gray-200 border-2 rounded-md drop-shadow py-2 px-2'>
+        <div key={tasks} className='bg-white border border-gray-200 rounded-2xl drop-shadow-lg py-5 px-10'>
           {tasks}
         </div>
       </div>
     );
 
     return (
-      <div className='w-full py-2 px-2'>
+      <div className='w-full'>
         {listItems}
       </div>
     );
@@ -24,6 +24,7 @@ class HandleUserInput extends React.Component {
     this.state = {
       value: '',
       items: [],
+      status: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -49,7 +50,8 @@ class HandleUserInput extends React.Component {
 
   handleSubmit(event) {
     this.setState({
-      value: event.target.value
+      value: event.target.value,
+      status: 'to-do'
     });
 
     let items = this.state.items;
@@ -67,25 +69,24 @@ class HandleUserInput extends React.Component {
 
   render() {
     return (
-      <div className='flex flex-col justify-center w-full'>
-          <form className='flex-col m-auto' onSubmit={this.handleSubmit}>
-            <label tmlFor="taskinput" className="block text-xl font-medium text-gray-700">Taken</label>
-              <div className="mt-1 flex items-center">
-                <div className="inline-block">
-                  <input
-                    type="text" 
-                    name='taskinput'
-                    value={this.state.value}
-                    onChange={this.handleChange}
-                    className="border-gray-300 border-2 shadow-sm"
-                  />
-                </div>
-                <input type="submit" value="Toevoegen" className="ml-5 bg-white py-2 px-3 border border-gray-300 rounded-md shadow-sm text-sm leading-4 font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500" />
+      <div className='flex flex-col justify-center w-full pt-36 absolute'>
+          <form onSubmit={this.handleSubmit}>
+              <div className='m-auto w-6/12'>
+                <input
+                  type="text" 
+                  name='taskinput'
+                  value={this.state.value}
+                  onChange={this.handleChange}
+                  placeholder='To-do tasks'
+                  className="w-full border border-gray-200 rounded-2xl drop-shadow-lg py-5 px-8"
+                />
               </div>
           </form>
 
-          <div className='m-auto w-9/12'>
-            <NumberList tasks={this.state.items}/>
+          <hr className='mt-12 w-1/6 m-auto border rounded-xl'/>
+
+          <div className='pt-12 m-auto w-6/12'>
+            <NumberList tasks={this.state.items} />
           </div>
       </div>
     )
