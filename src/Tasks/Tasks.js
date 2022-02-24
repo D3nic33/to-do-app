@@ -80,7 +80,7 @@ class HandleUserInput extends React.Component {
 
   render() {
     return (
-      <div className='flex flex-col justify-center w-full pt-36 absolute'>
+      <div className='flex flex-col justify-center w-full pt-40 absolute'>
           <form onSubmit={this.handleSubmit}>
               <div className='m-auto w-6/12'>
                 <input
