@@ -92,16 +92,31 @@ class HandleUserInput extends React.Component {
 
           <div className='pt-12 m-auto w-6/12'>
             {this.state.items.map((task, index) => (
-              <div className='py-2' id={index} key={index}>
+              <div className='py-2 w-full'>
                 <div
-                  onClick={() => this.handleClick(index)} //(), wordt pas aangeroepen wanneer je event afvuurt
-                  className={`flex border border-gray-200 rounded-2xl drop-shadow-lg py-5 px-10 ${task.status === 'completed' ? 'bg-lime-100' : 'bg-white'}`}>
+                  className={`flex border border-gray-200 rounded-2xl drop-shadow-lg py-5 px-8 ${task.status === 'completed' ? 'bg-blue-50' : 'bg-white'}`}
+                  id={index}
+                  key={index}
+                >
+                  <div 
+                    onClick={() => this.handleClick(index)}
+                    className={`rounded-xl h-5 w-5 border-2 my-auto ${task.status === 'completed' ? 'border-green-600 bg-green-500' : 'border-gray-300'}`}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 30 30" stroke="#FFFFFF">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    </svg>
+                  </div>
+                  <div className={`px-4 flex-grow ${task.status === 'completed' ? 'line-through text-slate-400' : ''}`}>
                     {task.description}
-                </div>
-                <div className='flex px-8' onClick={() => this.archiveTask(index)}>
-                  <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
-                  </svg>
+                  </div>
+                  <div
+                    className={`${task.status === 'completed' ? '' : 'hidden'}`}
+                    onClick={() => this.archiveTask(index)}
+                  >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 8h14M5 8a2 2 0 110-4h14a2 2 0 110 4M5 8v10a2 2 0 002 2h10a2 2 0 002-2V8m-9 4h4" />
+                    </svg>
+                  </div>
                 </div>
               </div>
             ))}
