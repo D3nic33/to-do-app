@@ -1,38 +1,11 @@
 import React from 'react';
 
-class NumberList extends React.Component {
-
-  handleClick(){
-    alert();
-  }
-
-  render() {
-    const listItems = this.props.tasks.map((tasks) =>
-      <div className='py-2'>
-        <div
-          key={tasks}
-          onClick={this.handleClick} 
-          className='bg-white border border-gray-200 rounded-2xl drop-shadow-lg py-5 px-10'>
-            {tasks}
-        </div>
-      </div>
-    );
-
-    return (
-      <div className='w-full'>
-        {listItems}
-      </div>
-    );
-  }
-}
-
 class HandleUserInput extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       value: '',
-      items: [],
-      status: ''
+      items: []
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -58,21 +31,34 @@ class HandleUserInput extends React.Component {
 
   handleSubmit(event) {
     this.setState({
-      value: event.target.value,
-      status: 'to-do'
+      value: event.target.value
     });
 
     let items = this.state.items;
-    items.push(this.state.value);
 
+    items.push({
+      description: this.state.value,
+      status: null
+    });
+
+    this.storeItems(items);
+    this.setState({value: ''});
+
+    event.preventDefault();
+  }
+
+  storeItems(items) {
     this.setState({
       items: items
     });
 
-    this.setState({value: ''});
     localStorage.setItem('Tasks', JSON.stringify(this.state.items));
+  }
 
-    event.preventDefault();
+  handleClick(index){
+    const items = this.state.items;
+    items[index].status = 'completed';
+    this.storeItems(items);
   }
 
   render() {
@@ -94,7 +80,15 @@ class HandleUserInput extends React.Component {
           <hr className='mt-12 w-1/6 m-auto border rounded-xl'/>
 
           <div className='pt-12 m-auto w-6/12'>
-            <NumberList tasks={this.state.items}/>
+            {this.state.items.map((task, index) => (
+              <div className='py-2' key={index}>
+                <div
+                  onClick={() => this.handleClick(index)} //(), wordt pas aangeroepen wanneer je event afvuurt
+                  className={`border border-gray-200 rounded-2xl drop-shadow-lg py-5 px-10 ${task.status === 'completed' ? 'bg-lime-100' : 'bg-white'}`}>
+                    {task.description}
+                </div>
+              </div>
+            ))}
           </div>
       </div>
     )
