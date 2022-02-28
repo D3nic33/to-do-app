@@ -106,7 +106,7 @@ class Tasks extends React.Component {
 
         <div className='pt-12 m-auto w-6/12'>
           {this.state.items.map((task, index) => (
-            <Task task={task} index={index} handleToDoClick={() => this.handleClick(index)}  />
+            <Task task={task} index={index} handleToDoClick={() => this.handleClick(index)} archiveToDoTask={() => this.archiveTask(index)} handleToDoFlag={() => this.handleFlag(index)}  />
           ))}
         </div>
       </div>

@@ -45,7 +45,7 @@ class Task extends React.Component {
           </div>
           <div
             className={`pr-4 ${task.complete ? "" : "hidden"}`}
-            onClick={() => this.archiveTask(index)}
+            onClick={this.props.archiveToDoTask}
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -66,7 +66,7 @@ class Task extends React.Component {
           <div className="my-auto">
             <div
               className={`${!task.complete && !task.flag ? "" : "hidden"}`}
-              onClick={() => this.handleFlag(index)}
+              onClick={this.props.handleToDoFlag}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -85,7 +85,7 @@ class Task extends React.Component {
             </div>
             <div
               className={`${!task.complete && task.flag ? "" : "hidden"}`}
-              onClick={() => this.handleFlag(index)}
+              onClick={this.props.handleToDoFlag}
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -116,7 +116,6 @@ class Task extends React.Component {
             </div>
           </div>
           <div
-            onClick={() => this.handleCalender(index)}
             className="my-auto px-2"
           >
             <svg
