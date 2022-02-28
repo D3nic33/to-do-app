@@ -13,11 +13,3 @@ class Header extends React.Component {
 }
 
 export default Header;
-
-
-/*<div className='flex flex-row items-center'>
-					<Link to="/">
-						<img src={Logo} alt="Logo" height={logoSpecs} width={logoSpecs} />
-					</Link>
-					<Link to="/about">About</Link>
-				</div>*/
