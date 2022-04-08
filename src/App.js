@@ -1,12 +1,12 @@
 import React from "react";
-import HandleUserInput from "./Tasks/Tasks"
-import Header from "./Header/Header"
+import Tasks from "./Pages/Tasks"
+import Header from "./Components/Header"
   
 function App() {
   return (
     <>
     <Header />
-    <HandleUserInput />
+    <Tasks />
     </>
   );
 }
