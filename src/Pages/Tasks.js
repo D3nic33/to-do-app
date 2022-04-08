@@ -38,7 +38,7 @@ class Tasks extends React.Component {
       value: event.target.value
     });
 
-    let items = this.state.items;
+    let items = this.state.items.reverse();
 
     items.push({
       description: this.state.value,
@@ -58,12 +58,13 @@ class Tasks extends React.Component {
     });
 
     console.log(items)
-    localStorage.setItem('Tasks', JSON.stringify(this.state.items));
+    localStorage.setItem('Tasks', JSON.stringify(this.state.items.reverse()));
   }
 
   handleClick(index){
     const items = this.state.items;
     items[index].complete = !items[index].complete;
+    items.reverse();
     this.storeItems(items);
   }
 
@@ -73,12 +74,14 @@ class Tasks extends React.Component {
       return
     }
     items.splice(index, 1);
+    items.reverse();
     this.storeItems(items);
   }
 
   handleFlag(index){
     const items = this.state.items;
     items[index].flag = !items[index].flag;
+    items.reverse();
     this.storeItems(items);
   }
 
