@@ -93,7 +93,7 @@ class Tasks extends React.Component {
     return (
       <div className='flex flex-col justify-center w-full pt-40 absolute'>
         <form onSubmit={this.handleSubmit}>
-          <div className='m-auto w-6/12'>
+          <div className='m-auto xl:w-6/12 lg:w-7/12 md:w-9/12 w-10/12'>
             <input
               type="text" 
               name='taskinput'
@@ -105,9 +105,9 @@ class Tasks extends React.Component {
           </div>
         </form>
 
-        <hr className='mt-12 w-1/6 m-auto border rounded-xl'/>
+        <hr className='mt-12 xl:w-1/6 lg:w-2/6 md:w-2/6 w-3/6 m-auto border rounded-xl'/>
 
-        <div className='pt-12 m-auto w-6/12'>
+        <div className='pt-12 m-auto xl:w-6/12 lg:w-7/12 md:w-9/12 w-10/12'>
           {this.state.items.map((task, index) => (
             <Task task={task} index={index} handleToDoClick={() => this.handleClick(index)} archiveToDoTask={() => this.archiveTask(index)} handleToDoFlag={() => this.handleFlag(index)}  />
           ))}
